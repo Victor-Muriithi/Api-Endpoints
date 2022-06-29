@@ -20,7 +20,7 @@ const controllers = {
         const {email} = req.params;
         const user = users.find((data) => data.email === email)
         if (user) {
-            return res.json({
+            return res.status(200).json({
                 status: 200,
                 Success: true,
                 Message: 'User Found',
@@ -42,7 +42,7 @@ const controllers = {
         const {email, pwd} = req.body
         const auth = users.find((data)=>data.email===email && data.Password===pwd)
         if(auth){
-            return res.json({
+            return res.status(200).json({
                 status:200,
                 Success:true,
                 Message:"Login Successful",
