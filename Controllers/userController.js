@@ -81,11 +81,9 @@ const controllers = {
         let pool = await poolPromise()
         {users.map((user)=>(
             pool.query(`INSERT INTO userData VALUES('${user.id}', '${user.first_name}', '${user.last_name}', '${user.email}', '${user.gender}', '${user.Password}')`)
-        .then(result=>{
-            if(result.rowsAffected)
-            // res.send("users added")
-            console.log("users added")
-        })))}
+    ))}
+    res.send('finished updating database')
+    console.log('finished updating database')
     }
 
     
