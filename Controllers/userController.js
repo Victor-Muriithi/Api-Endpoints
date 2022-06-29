@@ -1,5 +1,9 @@
-const e = require('express');
-const users = require('../MOCK_DATA.json')
+
+const users = require('../MOCK_DATA.json');
+
+const sqlConfig = require('../Config/dbConfig')
+const { user } = require('../Config/dbConfig')
+const poolPromise = require('../Config/pool')
 
 const controllers = {
     home: ((req, res) => {
@@ -7,14 +11,18 @@ const controllers = {
     }),
 
 
-    getAllusers: ((req, res) => {
+    getAllusers: async(req, res) => {
+        let pool = await poolPromise()
+        pool.query(`SELECT * FROM userData`).then(data=>{
+            console.log(data.recordset)
+        })
         res.json({
             Status: 200,
             Success: true,
             Message: 'All users',
             Result: users
         })
-    }),
+    },
 
     getUser: ((req, res) => {
         const {email} = req.params;
