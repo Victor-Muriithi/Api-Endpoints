@@ -28,5 +28,10 @@ Content-Type: application/json
   "gender":"Male",
   "pwd":"uehSLnl"   
 }
+####
+
+GET http://localhost:3001/users/addAllUsers
+
+####
 
 
