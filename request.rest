@@ -15,6 +15,18 @@ Content-Type: application/json
     "email":"sdemangeot2r@unc.edu",
     "pwd": "f8RDxnOda1"
  }
+#####
 
+POST http://localhost:3001/user/addUser
+Content-Type: application/json
+
+{
+  "id":11,
+  "first_name":"Jack",
+  "last_name":"Sparrow",
+  "email":"jacksparrow@gamil.com",
+  "gender":"Male",
+  "pwd":"uehSLnl"   
+}
 
 

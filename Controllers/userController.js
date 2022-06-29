@@ -4,6 +4,7 @@ const users = require('../MOCK_DATA.json');
 const sqlConfig = require('../Config/dbConfig')
 const { user } = require('../Config/dbConfig')
 const poolPromise = require('../Config/pool')
+var newUsers = []
 
 const controllers = {
     home: ((req, res) => {
@@ -14,13 +15,14 @@ const controllers = {
     getAllusers: async(req, res) => {
         let pool = await poolPromise()
         pool.query(`SELECT * FROM userData`).then(data=>{
+            newUsers = data.recordset
             console.log(data.recordset)
         })
         res.json({
             Status: 200,
             Success: true,
             Message: 'All users',
-            Result: users
+            Result: newUsers
         })
     },
 
@@ -46,7 +48,7 @@ const controllers = {
         
     }),
 
-    login:((req,res)=>{
+    login:(req,res)=>{
         const {email, pwd} = req.body
         const auth = users.find((data)=>data.email===email && data.Password===pwd)
         if(auth){
@@ -61,7 +63,20 @@ const controllers = {
             Success:false,
             Message:"Login Failed",
             result:[]})
-    })
+    },
+
+    createUser:async(req, res)=>{
+        let{id, first_name, last_name, email, gender, pwd }=req.body
+        let pool = await poolPromise()
+        pool.query(`INSERT INTO userData VALUES('${id}', '${first_name}', '${last_name}', '${email}', '${gender}', '${pwd}')`)
+        .then(result=>{
+            if(result.rowsAffected)
+                res.send("user added")
+                console.log("user added")
+        })
+        
+    }
+
     
 
 }
