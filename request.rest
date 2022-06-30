@@ -1,0 +1,36 @@
+
+GET http://localhost:3001
+
+###
+
+GET http://localhost:3001/users
+
+###
+
+GET http://localhost:3001/user/mjopp0@merriam-webster.com
+
+###
+
+POST http://localhost:3001/user/login
+Content-Type: application/json
+
+{
+    "email": "mjopp0@merriam-webster.com",
+      "pwd": "uehSLnl"
+}
+
+###
+POST http://localhost:3001/user/addUser
+Content-Type: application/json
+
+{
+  "id":1,
+  "first_name":"Monty",
+  "last_name":"Jopp",
+  "email":"mjopp0@merriam-webster.com",
+  "gender":"Male",
+  "Password":"uehSLnl"
+}
+####
+
+GET http://localhost:3001/users/addAllUsers
