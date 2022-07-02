@@ -12,23 +12,23 @@ const controllers = {
     getAllusers: async (req, res) => {
         let pool = await poolPromise()
         pool.query(`SELECT * FROM userData`).then(data => {
-            try {
-                res.json({
+            if (data.recordset) {
+                return res.status(200).json({
                     Status: 200,
                     Success: true,
                     Message: 'All users',
                     Result: data.recordset
-                })
-                newUsers = data.recordset
-                console.log(data.recordset)
-                return;
-
-
-            } catch (err) {
-                res.send(err)
-                console.log(err)
+                }) && console.log(data.recordset)
             }
-        })
+            res.status(404).json({
+                Status: 404,
+                Success: false,
+                Message: 'Users not found',
+                result: []
+            })
+
+        }
+        )
     },
 
     getUser: async (req, res) => {
@@ -41,7 +41,8 @@ const controllers = {
                         status: 200,
                         Success: true,
                         Message: 'User Found',
-                        Result: data.recordset}) &&
+                        Result: data.recordset
+                    }) &&
                         console.log(data.recordset)
 
                 }
@@ -94,9 +95,9 @@ const controllers = {
                     }) && console.log("User added")
                 }
                 res.status(403).json({
-                    status:404,
-                    Success:false,
-                    Message:"User not added"
+                    status: 404,
+                    Success: false,
+                    Message: "User not added"
                 })
             }
             )
